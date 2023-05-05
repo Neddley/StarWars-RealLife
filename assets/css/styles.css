@@ -128,7 +128,7 @@ main {
     border-radius: 50%;
 }
 
-.index:active{
+.index.active{
     transform: translate(-79px,190px);    
     transition: 4s;
 }
