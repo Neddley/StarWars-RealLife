@@ -4,12 +4,7 @@ const index3 = document.getElementById("index3");
 const primary = document.getElementById("primary");
 const secondary = document.getElementById("secondary");
 const tertiary = document.getElementById("tertiary");
-const mainChars = document.querySelector("#main-chars");
-let arrayChars = [];
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+const arrayChars = [];
 
 class Character {
   constructor(name, height, mass) {
@@ -20,6 +15,7 @@ class Character {
 }
 
 function reveal(num1, num2) {
+  
   if (num2 <7) {
     index1.removeAttribute("onmouseenter");
     index1.classList.add("active");
