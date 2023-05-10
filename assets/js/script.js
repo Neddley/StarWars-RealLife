@@ -33,12 +33,10 @@ function reveal(num1, num2) {
       .then(
         (data) => (char = new Character(data.name, data.height, data.mass))
       )
-      .then((char) => console.log(char))
-      .then((char) => arrayChars.push(char))
-      .then((arrayChars) => console.log(arrayChars));
+      .then((char) => generator(char,num2))
   }
 
-  function generator(data) {
+  function generator(data, num) {
     console.log(data)
     let name = data.name;
     let height = data.height;
