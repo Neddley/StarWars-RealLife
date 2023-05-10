@@ -5,6 +5,7 @@ const primary = document.getElementById("primary");
 const secondary = document.getElementById("secondary");
 const tertiary = document.getElementById("tertiary");
 const mainChars = document.querySelector("#main-chars");
+let arrayChars = [];
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -18,92 +19,47 @@ class Character {
   }
 }
 
-function reveal1() {
-
-  index1.removeAttribute("onmouseenter");
-
-  index1.classList.add("active");
-
-  for (i = 1; i < 6; i++) {
-    fetch("https://swapi.dev/api/people/" + i)
-      .then((response) => response.json())
-      .then(
-        (data) =>
-          (primaryChar = new Character(data.name, data.height, data.mass))
-      )
-      .then((primaryChar) => generator(primaryChar));
-  }
-
-  function generator(data) {
-    let name = data.name;
-    let height = data.height;
-    let mass = data.mass;
-
-    primary.innerHTML += `
-    <div class="v1">
-          <div class="circle"></div>
-          <div class="texts">
-            <h2>${name}</h2>
-            <p>Estatura: ${height} cm. Peso: ${mass} kg.</p>
-          </div>
-        </div>
-    `;
-  }
-
-  
-}
-
-function reveal2() {
-  for (i = 6; i < 11; i++) {
-    fetch("https://swapi.dev/api/people/" + i)
-      .then((response) => response.json())
-      .then(
-        (data) =>
-          (primaryChar = new Character(data.name, data.height, data.mass))
-      )
-      .then((primaryChar) => generator(primaryChar));
-  }
-
-  function generator(data) {
-    let name = data.name;
-    let height = data.height;
-    let mass = data.mass;
-
-    secondary.innerHTML += `
-    <div class="v2">
-          <div class="circle"></div>
-          <div class="texts">
-            <h2>${name}</h2>
-            <p>Estatura: ${height} cm. Peso: ${mass} kg.</p>
-          </div>
-        </div>
-    `;
-  }
-
-  index2.removeAttribute("onmouseenter");
-  if (secondary.clientHeight > 300) {
+function reveal(num1, num2) {
+  if (num2 <7) {
+    index1.removeAttribute("onmouseenter");
+    index1.classList.add("active");
+  } else if (num2 < 12) {
+    index2.removeAttribute("onmouseenter");
     index2.classList.add("active");
+  } else {
+    index3.removeAttribute("onmouseenter");
+    index3.classList.add("active");
   }
-}
 
-function reveal3() {
-  for (i = 11; i < 16; i++) {
+  for (i = num1; i < num2; i++) {
     fetch("https://swapi.dev/api/people/" + i)
       .then((response) => response.json())
       .then(
-        (data) =>
-          (primaryChar = new Character(data.name, data.height, data.mass))
+        (data) => (char = new Character(data.name, data.height, data.mass))
       )
-      .then((primaryChar) => generator(primaryChar));
+      .then((char) => console.log(char))
+      .then((char) => arrayChars.push(char))
+      .then((arrayChars) => console.log(arrayChars));
   }
 
   function generator(data) {
+    console.log(data)
     let name = data.name;
     let height = data.height;
     let mass = data.mass;
 
-    tertiary.innerHTML += `
-    <div class="v3">
+    if (num < 7) {
+      div1 = primary;
+      div2 = "v1";
+    } else if (num < 12) {
+      div1 = secondary;
+      div2 = "v2";
+    } else {
+      div1 = tertiary;
+      div2 = "v3";
+    }
+    div1.innerHTML += `
+    <div class=${div2}>
           <div class="circle"></div>
           <div class="texts">
             <h2>${name}</h2>
@@ -111,10 +67,5 @@ function reveal3() {
           </div>
         </div>
     `;
-  }
-
-  index3.removeAttribute("onmouseenter");
-  if (tertiary.clientHeight > 300) {
-    index3.classList.add("active");
   }
 }
