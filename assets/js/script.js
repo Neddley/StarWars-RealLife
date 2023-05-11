@@ -67,3 +67,4 @@ function reveal(num1, num2) {
     `;
   }
 }
+
