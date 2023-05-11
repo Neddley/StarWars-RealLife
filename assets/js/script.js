@@ -4,7 +4,6 @@ const index3 = document.getElementById("index3");
 const primary = document.getElementById("primary");
 const secondary = document.getElementById("secondary");
 const tertiary = document.getElementById("tertiary");
-const arrayChars = [];
 
 class Character {
   constructor(name, height, mass) {
@@ -27,13 +26,18 @@ function reveal(num1, num2) {
     index3.classList.add("active");
   }
 
+  let count = 0; // contador para retrasar la aparición de los divs
+
   for (i = num1; i < num2; i++) {
     fetch("https://swapi.dev/api/people/" + i)
       .then((response) => response.json())
       .then(
         (data) => (char = new Character(data.name, data.height, data.mass))
       )
-      .then((char) => generator(char,num2))
+      .then((char) => {
+        count++; // incrementar el contador por cada iteración del ciclo
+        setTimeout(() => generator(char,num2), count * 500); // llamar a generator con un retraso de 0.5 segundos multiplicado por el contador
+      });
   }
 
   function generator(data, num) {
